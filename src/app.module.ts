@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './modules/admin/users/users.module';
+
+console.log(__dirname + '/..');
 
 @Module({
   imports: [
@@ -14,9 +17,10 @@ import { AppService } from './app.service';
       username: process.env.DATABASE_USER || 'postgres',
       password: process.env.DATABASE_PASSWORD || 'root',
       database: process.env.DATABASE_NAME || 'bd_back_nest_api',
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: false, // set to false and then run "npm run typeorm migration:generate" to create the migration
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
